@@ -147,7 +147,9 @@ class MinPQ(Generic[T]):
             k: The position of the element to swim
         """
         # STUDENT TODO: Implement the swim method
-        pass
+        while k > 1 and self._greater(k // 2, k):
+            self._exch(k, k // 2)
+            k = k // 2
     
     def _sink(self, k: int):
         """
@@ -157,7 +159,14 @@ class MinPQ(Generic[T]):
             k: The position of the element to sink
         """
         # STUDENT TODO: Implement the sink method
-        pass
+        if 2 * k <= self.n:
+            j = 2 * k
+            if j < self.n and self._greater(j, j + 1):
+                j += 1
+            if not self._greater(k, j):
+                return
+            self._exch(k, j)
+            self._sink(j)
     
     def _greater(self, i: int, j: int) -> bool:
         """
